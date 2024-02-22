@@ -4,6 +4,15 @@ pipeline {
         jdk 'jdk17'
         maven 'maven3'
     }
+    environment {
+        SCANNER_HOME = tool 'sonar-scanner'
+        APP_NAME = "Red-app"
+        RELEASE = "1.0.0"
+        DOCKER_USER = "rajumb8080"
+        DOCKER_PASS = 'dockerhub'
+        IMAGE_NAME = "${DOCKER_USER}" + "/" + "${APP_NAME}"
+        IMAGE_TAG = "${RELEASE}-${BUILD_NUMBER}"
+    }
     stages{
         stage("Cleanup Workspace"){
                 steps {
