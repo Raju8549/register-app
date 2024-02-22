@@ -15,13 +15,13 @@ pipeline {
                     git branch: 'main', credentialsId: 'github', url: 'https://github.com/Raju8549/register-app.git'
                 }
         }
-         stage('SonarQube Analysis') {
-             steps {
-                def mvn = tool 'maven3';
-                    withSonarQubeEnv() {
-                        sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=Red-app -Dsonar.projectName='Red-app'"
+        stage("Sonarqube Analysis") {
+            steps {
+                withSonarQubeEnv('Sonar-Server') {
+                    sh '''$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Red-app \
+                        -Dsonar.projectKey=Red-app'''
                 }
-             }
+            }
         }
         stage("Build Application"){
                 steps {
