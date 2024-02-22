@@ -17,11 +17,11 @@ pipeline {
         }
         stage('SonarQube Analysis') {
                 steps {
-                    def maven = tool 'maven3';
+                    def scannerHome = tool 'sonar-scanner';
                         withSonarQubeEnv() {
-                          sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=Red-app -Dsonar.projectName='Red-app'"
+                          sh "${scannerHome}/bin/sonar-scanner"
+                        }
                 }
-            }
         }
         stage("Build Application"){
                 steps {
