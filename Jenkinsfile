@@ -16,9 +16,10 @@ pipeline {
                 }
         }
         stage('SonarQube Analysis') {
-            def maven = tool 'maven3';
-                withSonarQubeEnv() {
-                  sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=Red-app -Dsonar.projectName='Red-app'"
+                steps {
+                    def maven = tool 'maven3';
+                        withSonarQubeEnv() {
+                          sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=Red-app -Dsonar.projectName='Red-app'"
                 }
             }
         }
