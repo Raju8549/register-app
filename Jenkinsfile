@@ -3,7 +3,6 @@ pipeline {
     tools {
         jdk 'jdk17'
         maven 'maven3'
-        scannerHome 'sonar-scanner'
     }
     stages{
         stage("Cleanup Workspace"){
@@ -14,14 +13,6 @@ pipeline {
         stage("Checkout from SCM"){
                 steps {
                     git branch: 'main', credentialsId: 'github', url: 'https://github.com/Raju8549/register-app.git'
-                }
-        }
-        stage('SonarQube Analysis') {
-                steps {
-                    def scannerHome = tool 'sonar-scanner';
-                        withSonarQubeEnv() {
-                          sh "${scannerHome}/bin/sonar-scanner"
-                        }
                 }
         }
         stage("Build Application"){
